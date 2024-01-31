@@ -9,62 +9,59 @@ import { PokemonData } from '../../models/pokemonData';
 })
 export class CardComponent implements OnInit {
 
-  pokemon: PokemonData;
+
+
+  allPokemons: PokemonData[];
   search: string = "";
 
-
   constructor(private service: PokemonService) {
-    this.pokemon = {
+    this.allPokemons = [{
       id: 0,
       name: "",
       sprites: {
         front_default: ""
       },
-      types: []
-    }
+      types: [{
+        slot: 0,
+        type: {
+          name: "",
+          url: ""
+        }
+      }]
+    }];
+
   }
 
-  searchPokemon(search: string) {
-    this.service.getPokemon(search.toLowerCase())
-      .subscribe({
-        next: (data) => {
-          this.pokemon = {
-            id: data.id,
-            name: data.name,
-            sprites: {
-              front_default: data.sprites.front_default
-            },
-            types: data.types
-          }
-        },
-        error: (error) => {
-
+  getAllPokemon(): void {
+    this.service.getAllPokemon().subscribe((data: any) => {
+      this.allPokemons = data.results.map((pokemon: any, index: number) => {
+        return {
+          id: index + 1,
+          name: pokemon.name,
+          sprites: {
+            front_default: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`
+          },
+          types: [{
+            slot: 0,
+            type: {
+              name: "",
+              url: ""
+            }
+          }]
         }
       }
       );
+    });
 
   }
+
 
   ngOnInit(): void {
-    this.service.getPokemon("charizard")
-      .subscribe({
-        next: (data) => {
-          this.pokemon = {
-            id: data.id,
-            name: data.name,
-            sprites: {
-              front_default: data.sprites.front_default
-            },
-            types: data.types
-          }
-        },
-        error: (error) => {
-          console.log(error)
-        }
-      }
-      );
-
+    this.getAllPokemon();
   }
+
+
+
 }
 
 

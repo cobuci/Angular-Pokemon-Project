@@ -21,4 +21,11 @@ export class PokemonService {
     this.pokeData = this.http.get<PokemonData>(`${this.baseUrl}${pokemonName}`)
     return this.pokeData;
   }
+
+  getAllPokemon(): Observable<PokemonData[]> {
+    return this.http.get<PokemonData[]>(`${this.baseUrl}?limit=151`)
+  }
+
+
+
 }
