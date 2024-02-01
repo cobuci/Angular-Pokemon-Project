@@ -93,7 +93,6 @@ export class CardComponent implements OnInit {
       }
       );
       this.getPokemonTypes();
-      console.log(this.allPokemons);
     });
   }
 
