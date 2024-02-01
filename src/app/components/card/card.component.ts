@@ -9,8 +9,6 @@ import { PokemonData } from '../../models/pokemonData';
 })
 export class CardComponent implements OnInit {
 
-
-
   allPokemons: PokemonData[];
   search: string = "";
 
