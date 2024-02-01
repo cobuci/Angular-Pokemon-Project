@@ -2,11 +2,18 @@
 
 
   <div *ngFor="let item of allPokemons"
-    class="p-2 border-2 rounded-lg border-green-500 h-72 w-auto flex flex-col justify-between gap-2 bg-black/[0.3] text-white">
+    [ngClass]="'p-2 rounded-lg  border-4 h-full capitalize  w-auto flex flex-col justify-between gap-12 bg-black/[0.3] text-white ' + setBorderColor(item.types[0].type.name)">
     <span class="font-bold"># {{item.id}}</span>
-    <img [src]="item.sprites.front_default" alt="pokemon" class="w-auto h-auto mx-auto">
-    <span class="text-center">{{item.name}}</span>
+
+    <div class="bg-white/[0.1] rounded-full flex justify-center">
+      <img width="110" [src]="item.sprites.front_default" alt="{{item.name}}">
+    </div>
+    <div class="flex flex-col justify-center items-center mt-2">
+      <p class="font-bold align-center mb-2 text-lg">{{item.name}}</p>
+      <div class="flex gap-2">
+        <span *ngFor="let t of item.types" class="bg-white/[0.06] p-2 rounded-lg">{{t.type.name}}</span>
+      </div>
 
 
+    </div>
   </div>
-</div>
